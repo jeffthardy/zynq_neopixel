@@ -8,11 +8,17 @@
 
 module top
 (
-  input         clock_125m,
-  output        neopixel_drive,
-  output        leds
+  input             clock_125m,
+  output            neopixel_drive,
+  output      [3:0] leds
 );
 
+// Output a simple patter on the board
+assign leds = 4'b0101;
+
+
+
+// Connect the first Neopixel module to a driver
 wire pixel_clock;
 wire pixel_reset;
 wire pixel_wren;
