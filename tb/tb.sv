@@ -12,43 +12,15 @@ always begin
 end
 
 
-wire         pixel_clock;
-wire         pixel_reset;
-wire         pixel_wren;
-wire [31:0]  pixel_address;
-wire [31:0]  pixel_write_data;
-wire [31:0]  pixel_read_data;
+wire neopixel_link1;
+wire board_leds;
 
-
-wire         pixel_output;
-
-neopixel_driver #(
-  .C_RATE         (32'd80)
-)neopixel_driver_i(
-  .clock          (my_clock),
-  .reset          (1'b0),
-  .clock_ctrl     (pixel_clock),
-  .reset_ctrl     (pixel_reset),
-  .write_readf    (pixel_wren),
-  .address        (pixel_address),
-  .write_data     (pixel_write_data),
-  .read_data      (pixel_read_data)
+top
+(
+  .clock_125m     (my_clock),
+  .neopixel_drive (neopixel_link1),
+  .leds           (board_leds)
 );
-
-
-
-neopixel neopixel_i(
-  .clock          (my_clock),
-  .reset          (1'b0),
-  .neopixel_drive (pixel_output),
-  .clock_ctrl     (pixel_clock),
-  .reset_ctrl     (pixel_reset),
-  .write_readf    (pixel_wren),
-  .address        (pixel_address),
-  .write_data     (pixel_write_data),
-  .read_data      (pixel_read_data)
-);
-
 
 
 
