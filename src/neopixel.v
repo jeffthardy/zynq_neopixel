@@ -1,23 +1,11 @@
+// Copyright 2016 Jeff Hardy
+//--------------------------------------------------------------------------------
+// Developer: Jeff Hardy
+// Date     : 10/8/2016
+// Purpose  : Neopixel control module
+//--------------------------------------------------------------------------------
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company:
-// Engineer:
-//
-// Create Date: 09/12/2016 06:28:37 PM
-// Design Name:
-// Module Name: neopixel
-// Project Name:
-// Target Devices:
-// Tool Versions:
-// Description:
-//
-// Dependencies:
-//
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-//
-//////////////////////////////////////////////////////////////////////////////////
+
 
 
 module neopixel #(
