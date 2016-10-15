@@ -6,6 +6,8 @@
 #VIVADO_OPTS = -journal
 
 
+.PHONY: all prog clean
+
 all:
 	vivado -mode batch -source full_build.tcl -nojournal -nolog -tempDir ./work
 
