@@ -26,9 +26,9 @@ wire [31:0] pixel_address;
 wire [31:0] pixel_write_data;
 wire [31:0] pixel_read_data;
 
-neopixel_driver #(
+neopixel_control #(
   .C_RATE   (32'd33000000)
-  )neopixel_driver_i(
+  )neopixel_control_i(
   .clock          (clock_125m),
   .reset          (1'b0),
   .clock_ctrl     (pixel_clock),
@@ -44,16 +44,17 @@ neopixel #(
   .C_PIXELS         (12),
   .C_FREQ_HZ        (125000000)
 )neopixel_i(
-  .clock            (clock_125m),
-  .reset            (1'b0),
+  .neopixel_clock   (clock_125m),
+  .neopixel_reset   (1'b0),
   .neopixel_drive   (neopixel_drive),
   //control interface
-  .clock_ctrl       (pixel_clock),
-  .reset_ctrl       (pixel_reset),
-  .write_readf      (pixel_wren),
-  .address          (pixel_address),
-  .write_data       (pixel_write_data),
-  .read_data        (pixel_read_data)
+  .ctrl_clock       (pixel_clock),
+  .ctrl_reset       (pixel_reset),
+  .ctrl_write       (pixel_wren),
+  .ctrl_address     (pixel_address),
+  .ctrl_write_data  (pixel_write_data),
+  .ctrl_read_data   (pixel_read_data),
+  .ctrl_ready       ()
 );
 
 endmodule
