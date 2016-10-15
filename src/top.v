@@ -13,6 +13,9 @@ module top #(
 )
 (
   input             clock_125m,
+  input             reset_125m,
+  input      [31:0] axi_data,
+  input             axi_write_en,
   output            neopixel_drive,
   output      [3:0] leds
 );
@@ -35,17 +38,18 @@ neopixel_control #(
   .C_PIXELS         (C_PIXEL_COUNT),
   .C_RATE           (C_CONTROL_RATE)
   )neopixel_control_i(
-  .clock            (clock_125m),
-  .reset            (1'b0),
+  .axi_clock        (clock_125m),
+  .axi_reset        (reset_125m),
+  .axi_data         (axi_data),
+  .axi_write_en     (axi_write_en),
   .ctrl_clock       (pixel_clock),
   .ctrl_reset       (pixel_reset),
-  .write_en         (pixel_wren),
-  .address          (pixel_address),
-  .write_data       (pixel_write_data),
-  .read_data        (pixel_read_data),
-  .ready            (pixel_write_ready)
+  .ctrl_write_en    (pixel_wren),
+  .ctrl_address     (pixel_address),
+  .ctrl_write_data  (pixel_write_data),
+  .ctrl_read_data   (pixel_read_data),
+  .ctrl_ready       (pixel_write_ready)
 );
-
 
 neopixel #(
   .C_SIM_MODE       (C_SIM_MODE),

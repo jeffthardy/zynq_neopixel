@@ -1,8 +1,10 @@
 
+VIVADO = /xilinx/Vivado/2015.4/data/
 
 SRC_FILES =  	../src/top.v											\
 						 	../src/neopixel.v									\
-						 	../src/neopixel_control.v
+						 	../src/neopixel_control.v         \
+						 	$(VIVADO)/verilog/src/glbl.v
 
 
 TB_FILES  = 	../tb/src/tb.sv
@@ -16,7 +18,7 @@ build:
 	xvlog -work work -sv $(SRC_FILES) $(TB_FILES)
 
 elaborate:
-	xelab work.tb -debug all -s neopixel -nolog
+	xelab work.tb work.glbl -L unisims_ver -debug all -s neopixel -nolog
 
 view:
 	vivado -source display_sim.tcl

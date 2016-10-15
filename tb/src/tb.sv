@@ -5,14 +5,19 @@
 module tb ();
 
 
-reg my_clock = 1'b0;
+reg clock_125m = 1'b0;
+reg reset_125m = 1'b0;
+
+localparam CLOCK_PER = 8.0;
 
 always begin
-  #4 my_clock <= ~my_clock;
+  #(CLOCK_PER/2) clock_125m <= ~clock_125m;
 end
 
 // Quit after 1 ms
 initial begin
+  #(CLOCK_PER) reset_125m <= 1'b1;
+  #(CLOCK_PER*10) reset_125m <= 1'b0;
   #5000000  $finish;
 end
 
@@ -25,7 +30,10 @@ top #(
   .C_PIXEL_COUNT      (4)
 ) top_i
 (
-  .clock_125m     (my_clock),
+  .clock_125m     (clock_125m),
+  .reset_125m     (reset_125m),
+  .axi_data       (32'd0),
+  .axi_write_en   (1'b0),
   .neopixel_drive (neopixel_link1),
   .leds           (board_leds)
 );
