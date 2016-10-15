@@ -13,13 +13,17 @@ end
 
 // Quit after 1 ms
 initial begin
-  #1000000  $finish;
+  #5000000  $finish;
 end
 
 wire neopixel_link1;
 wire board_leds;
 
-top top_i
+top #(
+  .C_SIM_MODE         (1),
+  .C_CONTROL_RATE     (8000),
+  .C_PIXEL_COUNT      (4)
+) top_i
 (
   .clock_125m     (my_clock),
   .neopixel_drive (neopixel_link1),

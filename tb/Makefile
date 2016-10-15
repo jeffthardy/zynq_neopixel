@@ -2,7 +2,7 @@
 
 SRC_FILES =  	../src/top.v											\
 						 	../src/neopixel.v									\
-						 	../src/neopixel_driver.v
+						 	../src/neopixel_control.v
 
 
 TB_FILES  = 	../tb/src/tb.sv

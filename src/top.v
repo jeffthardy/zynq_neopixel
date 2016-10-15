@@ -6,7 +6,11 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-module top
+module top #(
+  parameter C_SIM_MODE = 0,
+  parameter C_CONTROL_RATE  = 32'd33000000,
+  parameter C_PIXEL_COUNT   = 12
+)
 (
   input             clock_125m,
   output            neopixel_drive,
@@ -25,23 +29,27 @@ wire pixel_wren;
 wire [31:0] pixel_address;
 wire [31:0] pixel_write_data;
 wire [31:0] pixel_read_data;
+wire        pixel_write_ready;
 
 neopixel_control #(
-  .C_RATE   (32'd33000000)
+  .C_PIXELS         (C_PIXEL_COUNT),
+  .C_RATE           (C_CONTROL_RATE)
   )neopixel_control_i(
-  .clock          (clock_125m),
-  .reset          (1'b0),
-  .clock_ctrl     (pixel_clock),
-  .reset_ctrl     (pixel_reset),
-  .write_readf    (pixel_wren),
-  .address        (pixel_address),
-  .write_data     (pixel_write_data),
-  .read_data      (pixel_read_data)
+  .clock            (clock_125m),
+  .reset            (1'b0),
+  .ctrl_clock       (pixel_clock),
+  .ctrl_reset       (pixel_reset),
+  .write_en         (pixel_wren),
+  .address          (pixel_address),
+  .write_data       (pixel_write_data),
+  .read_data        (pixel_read_data),
+  .ready            (pixel_write_ready)
 );
 
 
 neopixel #(
-  .C_PIXELS         (12),
+  .C_SIM_MODE       (C_SIM_MODE),
+  .C_PIXELS         (C_PIXEL_COUNT),
   .C_FREQ_HZ        (125000000)
 )neopixel_i(
   .neopixel_clock   (clock_125m),
@@ -54,7 +62,7 @@ neopixel #(
   .ctrl_address     (pixel_address),
   .ctrl_write_data  (pixel_write_data),
   .ctrl_read_data   (pixel_read_data),
-  .ctrl_ready       ()
+  .ctrl_ready       (pixel_write_ready)
 );
 
 endmodule
