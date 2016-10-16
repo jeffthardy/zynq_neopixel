@@ -8,21 +8,31 @@
 
 module top #(
   parameter C_SIM_MODE = 0,
-  parameter C_CONTROL_RATE  = 32'd33000000,
+  parameter C_CONTROL_RATE  = 32'd125000000,
   parameter C_PIXEL_COUNT   = 12
 )
 (
   input             clock_125m,
   input             reset_125m,
-  input      [31:0] axi_data,
-  input             axi_write_en,
-  output            neopixel_drive,
+  output            neopixel_drive1,
   output      [3:0] leds
 );
 
 // Output a simple patter on the board
 assign leds = 4'b0101;
 
+wire [31:0] axi_data;
+wire        axi_write_en;
+
+axi_generator #(
+  .C_RATE       (C_CONTROL_RATE),
+  .C_PIXELS     (C_PIXEL_COUNT)
+)axi_generator_i(
+  .axi_clock    (clock_125m),
+  .axi_reset    (reset_125m),
+  .axi_data     (axi_data),
+  .axi_write_en (axi_write_en)
+);
 
 
 // Connect the first Neopixel module to a driver
@@ -35,8 +45,7 @@ wire [31:0] pixel_read_data;
 wire        pixel_write_ready;
 
 neopixel_control #(
-  .C_PIXELS         (C_PIXEL_COUNT),
-  .C_RATE           (C_CONTROL_RATE)
+  .C_PIXELS         (C_PIXEL_COUNT)
   )neopixel_control_i(
   .axi_clock        (clock_125m),
   .axi_reset        (reset_125m),
@@ -57,8 +66,8 @@ neopixel #(
   .C_FREQ_HZ        (125000000)
 )neopixel_i(
   .neopixel_clock   (clock_125m),
-  .neopixel_reset   (1'b0),
-  .neopixel_drive   (neopixel_drive),
+  .neopixel_reset   (reset_125m),
+  .neopixel_drive   (neopixel_drive1),
   //control interface
   .ctrl_clock       (pixel_clock),
   .ctrl_reset       (pixel_reset),

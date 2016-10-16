@@ -9,7 +9,6 @@
 
 
 module neopixel_control #(
-  parameter C_RATE = 125000000,
   parameter C_PIXELS = 12
 )(
   // AXI Interface
