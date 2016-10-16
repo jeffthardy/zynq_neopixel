@@ -25,6 +25,16 @@ bitgen:
 prog:
 	vivado -mode batch -source program_fpga.tcl -nojournal -nolog  -tempDir ./work
 
+
+view_synth:
+	vivado -mode gui -source vivado_view_synth_results.tcl -nojournal -nolog -tempDir ./work
+
+view_place:
+	vivado -mode gui -source vivado_view_place_results.tcl -nojournal -nolog -tempDir ./work
+
+view_route:
+	vivado -mode gui -source vivado_view_route_results.tcl -nojournal -nolog -tempDir ./work
+
 help:
 	echo "Make targets: all = (synth, place, route, bitgen) , prog, help, clean"
 
