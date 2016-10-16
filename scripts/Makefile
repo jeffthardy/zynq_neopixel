@@ -25,6 +25,8 @@ bitgen:
 prog:
 	vivado -mode batch -source program_fpga.tcl -nojournal -nolog  -tempDir ./work
 
+help:
+	echo "Make targets: all = (synth, place, route, bitgen) , prog, help, clean"
 
 clean:
 	rm -f *.jou

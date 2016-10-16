@@ -1,10 +1,10 @@
 
 VIVADO = /xilinx/Vivado/2015.4/data/
 
-SRC_FILES =  	../src/top.v											\
-						 	../src/neopixel.v									\
-						 	../src/neopixel_control.v         \
-              ../src/axi_generator.v            \
+SRC_FILES =  	../src/top.v															\
+						 	../src/neopixel.v													\
+						 	../src/neopixel_control.v         				\
+              ../src/axi_generator.v            				\
 						 	$(VIVADO)/verilog/src/glbl.v
 
 
