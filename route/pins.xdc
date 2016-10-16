@@ -16,8 +16,11 @@ set_property IOSTANDARD LVCMOS33 [get_ports {leds[2]}]
 set_property PACKAGE_PIN D18 [get_ports {leds[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {leds[3]}]
 
-#Serial output to Neopixel Strand 1
+#Serial output for Neopixel Strand 1
 set_property -dict {PACKAGE_PIN T20 IOSTANDARD LVCMOS33} [get_ports neopixel_drive1]
+
+#Serial output for Neopixel Strand 2
+set_property -dict {PACKAGE_PIN U20 IOSTANDARD LVCMOS33} [get_ports neopixel_drive2]
 
 # Ethernet Clock
 set_property -dict {PACKAGE_PIN L16 IOSTANDARD LVCMOS33} [get_ports clock_125m]
